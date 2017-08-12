@@ -26,11 +26,7 @@ $(document).ready(function() {
   function createDialog(dialogData) {
     console.log('create dialog');
     showDialog(dialogData);
-    if(dialogData.buttons.length === 0) {
-      showStartDialogButton();
-    } else {
-      enableButtons(dialogData);
-    }
+    enableButtons(dialogData);
   }
 
   function showStartDialogButton() {

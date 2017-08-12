@@ -5,7 +5,7 @@ $(document).ready(function() {
     content += dialogData.buttons.map(function(button) {
       return "<button class='btn btn-primary answer' id='btn"+button.ID+"'>"+button.Text+"</button><br>";
     }).join('\n');
-    $(".content").html(content);
+    $(".dialog").html(content);
   }
 
   function enableButtons(dialogData) {
@@ -26,17 +26,36 @@ $(document).ready(function() {
   function createDialog(dialogData) {
     console.log('create dialog');
     showDialog(dialogData);
-    enableButtons(dialogData);
+    if(dialogData.buttons.length === 0) {
+      showStartDialogButton();
+    } else {
+      enableButtons(dialogData);
+    }
+  }
+
+  function showStartDialogButton() {
+    $('.dialog').html(
+      '<button type="button" id="call" class="btn btn-primary answer">'+
+			'Позвонить <i class="fa fa-phone"></i>'+
+		'</button>')
+    $('#complete').hide();
+    $('#call').click(function() {
+      console.log('ask for phone');
+      $('#complete').show();
+      // var testData = { text: '+7324', buttons: [{text: 'Ответил', id: '1'}, {text: 'Не ответил', id: '2'}] }
+      // showDialog(testData);
+      $.get(host+'/API/calls.init', function(data) {
+        createDialog(data.result);
+      })
+    })
   }
 
   console.log('dom ready');
-  $('#call').click(function() {
-    console.log('ask for phone');
-    // var testData = { text: '+7324', buttons: [{text: 'Ответил', id: '1'}, {text: 'Не ответил', id: '2'}] }
-    // showDialog(testData);
-    $.get(host+'/API/calls.init', function(data) {
-      createDialog(data.result);
+  showStartDialogButton();
+  $('#complete').on('click', function() {
+    $.get(host+'/API/calls.complete', function(data) {
+      showStartDialogButton();
     })
-
   })
+
 });

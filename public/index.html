@@ -5,11 +5,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 	<title>Облачная звонилка</title>
 	<style media="screen">
-		#call {
-			width: 50%;
-			height: 20vh;
-			font-size: 1.5em;
-		}
 		.content {
 			padding-top: 10%;
 			text-align: center;
@@ -22,6 +17,9 @@
 		.question-text {
 			font-size: 1em;
 		}
+		#complete {
+			display: none;
+		}
 	</style>
 	<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -31,8 +29,11 @@
 </head>
 <body>
 <div class="content">
-	<button type="button" id="call" class="btn btn-primary">
-		Позвонить <i class="fa fa-phone"></i>
+	<span class="dialog">
+	</span>
+	<br>
+	<button type="button" id="complete" class="btn btn-danger answer">
+		Завершить <i class="fa fa-phone"></i>
 	</button>
 </div>
 </body>

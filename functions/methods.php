@@ -12,7 +12,7 @@ class calls
 		global $db;
 		$result = $error = '';
 
-		if (!$phone = $db->getOne('select Phone from phones where UserID=?i and StatusID=0', 1))
+		if (!$phone = $db->getOne('select Phone from phones where UserID=?i and StatusID=0', auth::getID()))
 		{ // если человек по базе уже разговаривает с кем-то, то отдаём этот номер
 
 			if (strlen($cityCode) < 7) {
@@ -31,9 +31,9 @@ class calls
 				} while ($db->getOne('SELECT count(*) FROM phones WHERE Phone=?i', $phone));
 
 
-				$db->query('INSERT INTO phones SET Phone=?i, UserID=?i', $phone, 1);
+				$db->query('INSERT INTO phones SET Phone=?i, UserID=?i', $phone, auth::getID());
 
-				$db->query('INSERT INTO log SET PhoneID=?i, ButtonID=8, UserID=?i, DATETIME=NOW()', $db->insertId(), 1);
+				$db->query('INSERT INTO log SET PhoneID=?i, ButtonID=8, UserID=?i, DATETIME=NOW()', $db->insertId(), auth::getID());
 
 			} else
 				$error = 'Код города слишком длинный';
@@ -59,18 +59,18 @@ class calls
 		global $db;
 		$result = $error = '';
 
-		if ($phoneID = $db->getOne('select ID from phones where UserID=?i and StatusID=0', 1))
+		if ($phoneID = $db->getOne('select ID from phones where UserID=?i and StatusID=0', auth::getID()))
 		{ // ищем разговоры этого человека в данный момент
 
 			if ($buttonInfo = $db->getRow('select ID, ToScriptID from script_buttons where ID=?i', $buttonID)) {
 				//todo при нажатии на кнопку проверять, что логика дерева сохраняется
 
-				$db->query('INSERT INTO log SET PhoneID=?i, ButtonID=?i, UserID=?i, DateTime=NOW()', $phoneID, $buttonID, 1);
+				$db->query('INSERT INTO log SET PhoneID=?i, ButtonID=?i, UserID=?i, DateTime=NOW()', $phoneID, $buttonID, auth::getID());
 
 				$result = script::get($buttonInfo['ToScriptID'] ?: 6);
 
 				if (!$buttonInfo['ToScriptID'])
-					$db->query('update phones set StatusID=1 where ID=?i', $phoneID);
+					calls::complete();
 
 			} else
 				$error = 'Неизвестная ошибка';
@@ -92,14 +92,14 @@ class calls
 		global $db;
 		$result = $error = '';
 
-		if ($phoneID = $db->getOne('select ID from phones where UserID=?i and StatusID=0', 1))
+		if ($phoneID = $db->getOne('select ID from phones where UserID=?i and StatusID=0', auth::getID()))
 		{ // ищем разговоры этого человека в данный момент
 
 			$db->query('update phones set StatusID=1 where ID=?i', $phoneID);
 			// и завершаем его
+			$db->query('INSERT INTO log SET PhoneID=?i, ButtonID=9, UserID=?i, DATETIME=NOW()', $phoneID, auth::getID());
 
-		} else
-			$error = 'Нет активного звонка';
+		} //else $error = 'Нет активного звонка';
 
 
 		return [$result, $error];

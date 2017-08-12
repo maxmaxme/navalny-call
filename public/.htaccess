@@ -1,0 +1,7 @@
+Options -Indexes
+
+RewriteEngine on
+
+RewriteBase /
+
+RewriteRule ^API/([\w.]+)/? /backend/api.php?method=$1 [QSA]

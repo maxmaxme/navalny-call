@@ -3,8 +3,28 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Облачная звонилка</title>
+	<style media="screen">
+		#call {
+			width: 50%;
+			height: 20vh;
+			font-size: 2em;
+		}
+		.content {
+			padding-top: 10%;
+			text-align: center;
+		}
+	</style>
+	<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="call.js"></script>
 </head>
 <body>
-
+<div class="content">
+	<button type="button" id="call" class="btn btn-primary">
+		Позвонить <i class="fa fa-phone"></i>
+	</button>
+</div>
 </body>
 </html>

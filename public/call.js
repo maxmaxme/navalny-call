@@ -32,11 +32,19 @@ $(document).ready(function() {
     })
   }
 
+  function get(addr, callback) {
+    $.get(host+addr, function(data) {
+      if(data.success) {
+        callback(data.result);
+      } else {
+        alert('ошибка:'+data.error);
+      }
+    });
+  }
+
   function loadNewDialog(id) {
     console.log('load dialog', id);
-    $.get(host+'/API/calls.button?buttonID='+id, function(data) {
-      createDialog(data.result);
-    })
+    get('/API/calls.button?buttonID='+id, createDialog);
   }
 
   function createDialog(dialogData) {
@@ -56,9 +64,7 @@ $(document).ready(function() {
       $('#complete').show();
       // var testData = { text: '+7324', buttons: [{text: 'Ответил', id: '1'}, {text: 'Не ответил', id: '2'}] }
       // showDialog(testData);
-      $.get(host+'/API/calls.init', function(data) {
-        createDialog(data.result);
-      })
+      get('/API/calls.init', createDialog);
     })
   }
 

@@ -16,6 +16,7 @@ switch ($method) {
 
 	case 'calls.init': list($result, $error) = calls::init(varInt('cityCode')); break;
 	case 'calls.button': list($result, $error) = calls::button(varInt('buttonID')); break;
+	case 'calls.complete': list($result, $error) = calls::complete(); break;
 
 
 	default:

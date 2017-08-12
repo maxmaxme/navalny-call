@@ -2,7 +2,11 @@
 
 class calls
 {
-
+	/**
+	 * Инициализация нового звонка
+	 * @param string $cityCode Код города, необязательный параметр, тогда берётся рандомный
+	 * @return array
+	 */
 	static public function init($cityCode = '')
 	{
 		global $db;
@@ -14,6 +18,8 @@ class calls
 			do {
 				$cityCode = $cityCode ?:
 					$db->getOne('SELECT Code FROM city_codes WHERE Code>0 ORDER BY RAND() LIMIT 1');
+				//todo учитывать сколько времени сейчас в этом городе
+
 
 				$phone = $cityCode;
 
@@ -36,6 +42,11 @@ class calls
 
 	}
 
+	/**
+	 * Вызывается при нажатии кнопки скрипта
+	 * @param int $buttonID ID кнопки
+	 * @return array
+	 */
 	static public function button($buttonID)
 	{
 		global $db;
@@ -45,6 +56,7 @@ class calls
 		{ // ищем разговоры этого человека в данный момент
 
 			if ($buttonInfo = $db->getRow('select ID, ToScriptID from script_buttons where ID=?i', $buttonID)) {
+				//todo при нажатии на кнопку проверять, что логика дерева сохраняется
 
 				$db->query('INSERT INTO log SET PhoneID=?i, ButtonID=?i, UserID=?i, DateTime=NOW()', $phoneID, $buttonID, 1);
 
@@ -56,6 +68,28 @@ class calls
 			} else
 				$error = 'Неизвестная ошибка';
 
+
+		} else
+			$error = 'Нет активного звонка';
+
+
+		return [$result, $error];
+	}
+
+	/**
+	 * Завершение звонка в любой момент
+	 * @return array
+	 */
+	static public function complete()
+	{
+		global $db;
+		$result = $error = '';
+
+		if ($phoneID = $db->getOne('select ID from phones where UserID=?i and StatusID=0', 1))
+		{ // ищем разговоры этого человека в данный момент
+
+			$db->query('update phones set StatusID=1 where ID=?i', $phoneID);
+			// и завершаем его
 
 		} else
 			$error = 'Нет активного звонка';

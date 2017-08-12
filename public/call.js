@@ -1,7 +1,14 @@
 $(document).ready(function() {
   var host = 'http://192.168.1.150';
+  function formatText(text) {
+    function nl2br(str) {
+      return (str + '').replace(/\n/g, '<br>');
+    }
+    return "<span class='question-text'>"+nl2br(text)+"</span><br>"
+  }
+
   function showDialog(dialogData) {
-    var content = "<span class='question-text'>"+dialogData.text+"</span><br>";
+    var content = formatText(dialogData.text);
     content += dialogData.buttons.map(function(button) {
       return "<button class='btn btn-primary answer' id='btn"+button.ID+"'>"+button.Text+"</button><br>";
     }).join('\n');

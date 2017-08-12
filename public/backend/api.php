@@ -14,6 +14,9 @@ switch ($method) {
 		$result = 'OK!';
 		break;
 
+	case 'calls.init': $result = calls::init(varInt('cityCode')); break;
+
+
 	default:
 		$error = 'Unknown method';
 		break;

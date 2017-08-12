@@ -1,10 +1,19 @@
 $(document).ready(function() {
   var host = 'http://192.168.1.150';
   function formatText(text) {
+    function createTel(str) {
+      return "<a href='tel:"+str+"'>"+str+"</a>";
+    }
+    function format(str) {
+      if(str[0] === '+') {
+        return createTel(str);
+      }
+      return nl2br(str)
+    }
     function nl2br(str) {
       return (str + '').replace(/\n/g, '<br>');
     }
-    return "<span class='question-text'>"+nl2br(text)+"</span><br>"
+    return "<span class='question-text'>"+format(text)+"</span><br>"
   }
 
   function showDialog(dialogData) {

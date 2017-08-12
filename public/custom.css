@@ -1,14 +1,16 @@
 .content {
-  padding-top: 10%;
+  padding-top: 5%;
   text-align: center;
 }
 .answer {
-  width: 40%;
+  max-width: 90%;
+  width: 40em;
   height: 10vh;
-  margin: 25px;
+  margin: 20px 0px;
+
 }
 .question-text {
-  font-size: 1em;
+  font-size: 1.2em;
 }
 #complete {
   display: none;

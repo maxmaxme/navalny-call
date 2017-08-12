@@ -37,7 +37,8 @@ $(document).ready(function() {
       if(data.success) {
         callback(data.result);
       } else {
-        alert('ошибка:'+data.error);
+        alert('ошибка: '+data.error);
+        showStartDialogButton();
       }
     });
   }
@@ -71,9 +72,7 @@ $(document).ready(function() {
   console.log('dom ready');
   showStartDialogButton();
   $('#complete').on('click', function() {
-    $.get(host+'/API/calls.complete', function(data) {
-      showStartDialogButton();
-    })
+    get('/API/calls.complete', showStartDialogButton)
   })
 
 });

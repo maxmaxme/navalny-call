@@ -15,28 +15,35 @@ class calls
 		if (!$phone = $db->getOne('select Phone from phones where UserID=?i and StatusID=0', 1))
 		{ // если человек по базе уже разговаривает с кем-то, то отдаём этот номер
 
-			do {
-				$cityCode = $cityCode ?:
-					$db->getOne('SELECT Code FROM city_codes WHERE Code>0 ORDER BY RAND() LIMIT 1');
-				//todo учитывать сколько времени сейчас в этом городе
+			if (strlen($cityCode) < 7) {
+
+				do {
+					$cityCode = $cityCode ?:
+						$db->getOne('SELECT Code FROM city_codes WHERE Code>0 ORDER BY RAND() LIMIT 1');
+					//todo учитывать сколько времени сейчас в этом городе
 
 
-				$phone = $cityCode;
+					$phone = $cityCode;
 
-				$length = 10 - strlen($phone);
+					$length = 10 - strlen($phone);
 
-				while ($length--) $phone .= rand(0, 9);
-			} while ($db->getOne('SELECT count(*) FROM phones WHERE Phone=?i', $phone));
+					while ($length--) $phone .= rand(0, 9);
+				} while ($db->getOne('SELECT count(*) FROM phones WHERE Phone=?i', $phone));
 
 
-			$db->query('INSERT INTO phones SET Phone=?i, UserID=?i', $phone, 1);
+				$db->query('INSERT INTO phones SET Phone=?i, UserID=?i', $phone, 1);
+
+				$db->query('INSERT INTO log SET PhoneID=?i, ButtonID=8, UserID=?i, DATETIME=NOW()', $db->insertId(), 1);
+
+			} else
+				$error = 'Код города слишком длинный';
 
 		}
 
-		$result = [
+		$result = !$error ? [
 			'text' => '+7' . $phone,
 			'buttons' => script::getButtons(1)
-		];
+		] : '';
 
 		return [$result, $error];
 

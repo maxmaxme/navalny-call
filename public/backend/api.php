@@ -18,6 +18,7 @@ switch ($method) {
 	case 'calls.button': list($result, $error) = calls::button(varInt('buttonID')); break;
 	case 'calls.complete': list($result, $error) = calls::complete(); break;
 	case 'script.addButton': list($result, $error) = script::addButton(varInt('scriptID'), varStr('text')); break;
+	case 'script.add': list($result, $error) = script::add(varInt('buttonID'), varStr('text')); break;
 
 
 	default:

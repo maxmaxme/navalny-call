@@ -134,14 +134,39 @@ class script
 			WHERE ScriptID = ?i
 		', $scriptID);
 	}
+
 	static public function addButton($scriptID, $text)
 	{
 		global $db;
 
-		$result = $error = '';
+		$error = '';
+		$result = [];
 
-		if ($scriptID && $text)
-			$db->query('insert into script_buttons set ScriptID=?i, Text=?s', $scriptID, $text);
+		if ($scriptID && $text) {
+			$db->query('INSERT INTO script_buttons SET ScriptID=?i, Text=?s', $scriptID, $text);
+
+			$result['buttonID'] = $db->insertId();
+		}
+		else
+			$error = 'Заполнены не все поля';
+
+		return [$result, $error];
+	}
+
+	static public function add($buttonID, $text)
+	{
+		global $db;
+
+		$error = '';
+		$result = [];
+
+		if ($buttonID && $text) {
+			$db->query('INSERT INTO script SET TEXT=?s', $text);
+			$scriptID = $db->insertId();
+			$db->query('update script_buttons set ToScriptID=?i where ID=?i', $scriptID, $buttonID);
+
+			$result['scriptID'] = $scriptID;
+		}
 		else
 			$error = 'Заполнены не все поля';
 

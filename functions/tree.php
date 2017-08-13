@@ -5,7 +5,7 @@ function getBranch($scriptID, $addBtns = false) {
 
 
 	$text = $db->getOne('select concat("Я: ", Text) as Text from script where ID=?i', $scriptID);
-	$buttons = $db->getAll('select Text, ToScriptID from script_buttons where ScriptID=?i', $scriptID);
+	$buttons = $db->getAll('select ID, Text, ToScriptID from script_buttons where ScriptID=?i', $scriptID);
 
 
 	$html = '<ul><li><span><a>' . $text . '</a></span><ul>';
@@ -20,8 +20,8 @@ function getBranch($scriptID, $addBtns = false) {
 			$html .= getBranch($button['ToScriptID'], $addBtns);
 		else
 			if ($addBtns)
-				$html .= '<ul><li><span><a class="PlusBtn">+</a></span></li></ul>';
-		//todo добавление продолжения скрипта (моих ответов)
+				$html .= '<ul><li><span><a class="PlusBtn addScript" data-button-id="' . $button['ID'] . '">+Добавить продолжение</a></span></li></ul>';
+
 
 		$html .= '</li>';
 	}

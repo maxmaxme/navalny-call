@@ -197,6 +197,15 @@ require_once '../config.php';
         });
 
 
+        $('.addScript').click(function () {
+
+			var $container = $(this).parent(),
+				buttonID = $(this).data('button-id');
+
+			$container.html('<div class="input"><input data-button-id="' + buttonID + '"><button onclick="saveScript(this)">save</button></div>');
+        });
+
+
 
 
 
@@ -229,12 +238,34 @@ require_once '../config.php';
 
 
         if (scriptID > 0 && text !== '') {
-            get('/API/script.addButton?scriptID='+scriptID + '&text=' + text, function () {
+            get('/API/script.addButton?scriptID='+scriptID + '&text=' + text, function (result) {
                 $span.html('<a><em class="marker"></em>' + text + '</a>');
-                $ul.append('<ul><li><span><a class="PlusBtn">+</a></span></li></ul>');
+                $ul.append('<ul><li><span><a class="PlusBtn addScript" data-script-id="' + result.buttonID + '">+</a></span></li></ul>');
             });
 		}
     }
+
+    function saveScript(_this) {
+
+
+        var $container = $(_this).parent(),
+            $span = $container.parent(),
+            $ul = $span.parent(),
+        	$input = $container.find('input'),
+            buttonID = $input.data('button-id'),
+			text = $input.val();
+
+
+        if (buttonID > 0 && text !== '') {
+            get('/API/script.add?buttonID='+buttonID + '&text=' + text, function (result) {
+                $span.html('<a><em class="marker"></em>Я: ' + text + '</a>');
+                $ul.append('<ul><li><span><a class="PlusBtn addScriptButton" data-script-id="' + result.scriptID + '">+</a></span></li></ul>');
+            });
+		}
+    }
+
+
+    // todo переделать $('.addScriptButton').click и $('.addScript').click на onClick, ибо при js добавлении элементов на них не навешиваются действия
 
 
     /*]]>*/

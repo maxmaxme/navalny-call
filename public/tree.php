@@ -164,6 +164,38 @@ require_once '../config.php';
 
 				$container.html('<div class="input"><input data-button-id="' + buttonID + '"><button onclick="saveScript(this)">save</button></div>');
 				}
+
+
+				function initTree() {
+                    $('#multi-derevo li span')
+						.unbind('click')
+						.click(function () {
+                        // снимаем выделение предыдущего узла
+                        $('a.current').removeClass('current');
+                        var a = $('a:first',this.parentNode);
+                        // Выделяем выбранный узел
+                        //было a.hasClass('current')?a.removeClass('current'):a.addClass('current');
+                        a.toggleClass('current');
+                        var li=$(this.parentNode);
+                        /* если это последний узел уровня, то соединительную линию к следующему
+						  рисовать не нужно */
+                        if (!li.next().length) {
+                            /* берем корень разветвления <li>, в нем находим поддерево <ul>,
+							 выбираем прямых потомков ul > li, назначаем им класс 'last' */
+                            li.find('ul:first > li').addClass('last');
+                        }
+                        // анимация раскрытия узла и изменение состояния маркера
+                        var ul=$('ul:first',this.parentNode);// Находим поддерево
+                        if (ul.length) {// поддерево есть
+                            ul.slideToggle(300); //свернуть или развернуть
+                            // Меняем сосотояние маркера на закрыто/открыто
+                            var em=$('em:first',this.parentNode);// this = 'li span'
+                            // было em.hasClass('open')?em.removeClass('open'):em.addClass('open');
+                            em.toggleClass('open');
+                        }
+                    });
+				}
+
     $(document).ready(function () {
         /* Расставляем маркеры на узлах, имющих внутри себя поддерево.
 		  Выбираем элементы 'li' которые имеют вложенные 'ul', ставим для них
@@ -174,41 +206,8 @@ require_once '../config.php';
 		*/
         $('#multi-derevo li:has("ul")').find('a:first').prepend('<em class="marker"></em>');
 		// вешаем событие на клик по ссылке
-        $('#multi-derevo li span').click(function () {
-            // снимаем выделение предыдущего узла
-            $('a.current').removeClass('current');
-            var a = $('a:first',this.parentNode);
-            // Выделяем выбранный узел
-            //было a.hasClass('current')?a.removeClass('current'):a.addClass('current');
-            a.toggleClass('current');
-            var li=$(this.parentNode);
-            /* если это последний узел уровня, то соединительную линию к следующему
-			  рисовать не нужно */
-            if (!li.next().length) {
-                /* берем корень разветвления <li>, в нем находим поддерево <ul>,
-				 выбираем прямых потомков ul > li, назначаем им класс 'last' */
-                li.find('ul:first > li').addClass('last');
-            }
-            // анимация раскрытия узла и изменение состояния маркера
-            var ul=$('ul:first',this.parentNode);// Находим поддерево
-            if (ul.length) {// поддерево есть
-                ul.slideToggle(300); //свернуть или развернуть
-                // Меняем сосотояние маркера на закрыто/открыто
-                var em=$('em:first',this.parentNode);// this = 'li span'
-                // было em.hasClass('open')?em.removeClass('open'):em.addClass('open');
-                em.toggleClass('open');
-            }
-        });
 
-
-
-
-
-				//$('.addScriptButton').click(addScriptButton);
-				//$('.addScript').click(addScript);
-
-
-
+        initTree();
 
 
 
@@ -242,7 +241,8 @@ require_once '../config.php';
         if (scriptID > 0 && text !== '') {
             get('/API/script.addButton?scriptID='+scriptID + '&text=' + text, function (result) {
                 $span.html('<a><em class="marker"></em>' + text + '</a>');
-                $ul.append('<ul><li><span><a class="PlusBtn" onclick="addScript(this)" data-script-id="' + result.buttonID + '">+</a></span></li></ul>');
+                $ul.append('<ul><li><span><a class="PlusBtn" onclick="addScript(this)" data-button-id="' + result.buttonID + '">+</a></span></li></ul>');
+                initTree();
             });
 		}
     }
@@ -262,6 +262,7 @@ require_once '../config.php';
             get('/API/script.add?buttonID='+buttonID + '&text=' + text, function (result) {
                 $span.html('<a><em class="marker"></em>Я: ' + text + '</a>');
                 $ul.append('<ul><li><span><a class="PlusBtn" onclick="addScriptButton(this)" data-script-id="' + result.scriptID + '">+</a></span></li></ul>');
+                initTree();
             });
 		}
     }

@@ -12,7 +12,7 @@ function getBranch($scriptID, $addBtns = false) {
 
 
 	if ($addBtns)
-		$html .= '<li><span><a class="PlusBtn addScriptButton" data-script-id="' . $scriptID . '">+ Добавить вариант ответа</a></span></li>';
+		$html .= '<li><span><a class="PlusBtn" onclick="addScriptButton(this)" data-script-id="' . $scriptID . '">+ Добавить вариант ответа</a></span></li>';
 
 	foreach ($buttons as $button) {
 		$html .= '<li><span><a>' . $button['Text'] . '</a></span>';
@@ -20,7 +20,7 @@ function getBranch($scriptID, $addBtns = false) {
 			$html .= getBranch($button['ToScriptID'], $addBtns);
 		else
 			if ($addBtns)
-				$html .= '<ul><li><span><a class="PlusBtn addScript" data-button-id="' . $button['ID'] . '">+Добавить продолжение</a></span></li></ul>';
+				$html .= '<ul><li><span><a class="PlusBtn" onclick="addScript(this)" data-button-id="' . $button['ID'] . '">+Добавить продолжение</a></span></li></ul>';
 
 
 		$html .= '</li>';

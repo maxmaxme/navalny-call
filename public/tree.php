@@ -148,18 +148,19 @@ require_once '../config.php';
 	 - Определяет последний узел с поддеревом и скрывает соединительную
 	  линию до следующего узла этого уровня.
 	*/
-				function addScriptButton() {
+				function addScriptButton(_this) {
 
-				var $container = $(this).parent(),
-				scriptID = $(this).data('script-id');
+
+				var $container = $(_this).parent(),
+				scriptID = $(_this).data('script-id');
 
 				$container.html('<div class="input"><input data-script-id="' + scriptID + '"><button onclick="saveScriptBtn(this)">save</button></div>');
 				}
 
-				function addScript() {
+				function addScript(_this) {
 
-				var $container = $(this).parent(),
-				buttonID = $(this).data('button-id');
+				var $container = $(_this).parent(),
+				buttonID = $(_this).data('button-id');
 
 				$container.html('<div class="input"><input data-button-id="' + buttonID + '"><button onclick="saveScript(this)">save</button></div>');
 				}
@@ -241,7 +242,7 @@ require_once '../config.php';
         if (scriptID > 0 && text !== '') {
             get('/API/script.addButton?scriptID='+scriptID + '&text=' + text, function (result) {
                 $span.html('<a><em class="marker"></em>' + text + '</a>');
-                $ul.append('<ul><li><span><a class="PlusBtn" onclick="addScript()" data-script-id="' + result.buttonID + '">+</a></span></li></ul>');
+                $ul.append('<ul><li><span><a class="PlusBtn" onclick="addScript(this)" data-script-id="' + result.buttonID + '">+</a></span></li></ul>');
             });
 		}
     }
@@ -260,7 +261,7 @@ require_once '../config.php';
         if (buttonID > 0 && text !== '') {
             get('/API/script.add?buttonID='+buttonID + '&text=' + text, function (result) {
                 $span.html('<a><em class="marker"></em>Я: ' + text + '</a>');
-                $ul.append('<ul><li><span><a class="PlusBtn" onclick="addScriptButton()" data-script-id="' + result.scriptID + '">+</a></span></li></ul>');
+                $ul.append('<ul><li><span><a class="PlusBtn" onclick="addScriptButton(this)" data-script-id="' + result.scriptID + '">+</a></span></li></ul>');
             });
 		}
     }

@@ -148,6 +148,21 @@ require_once '../config.php';
 	 - Определяет последний узел с поддеревом и скрывает соединительную
 	  линию до следующего узла этого уровня.
 	*/
+				function addScriptButton() {
+
+				var $container = $(this).parent(),
+				scriptID = $(this).data('script-id');
+
+				$container.html('<div class="input"><input data-script-id="' + scriptID + '"><button onclick="saveScriptBtn(this)">save</button></div>');
+				}
+
+				function addScript() {
+
+				var $container = $(this).parent(),
+				buttonID = $(this).data('button-id');
+
+				$container.html('<div class="input"><input data-button-id="' + buttonID + '"><button onclick="saveScript(this)">save</button></div>');
+				}
     $(document).ready(function () {
         /* Расставляем маркеры на узлах, имющих внутри себя поддерево.
 		  Выбираем элементы 'li' которые имеют вложенные 'ul', ставим для них
@@ -186,21 +201,7 @@ require_once '../config.php';
 
 
 
-				function addScriptButton() {
 
-				var $container = $(this).parent(),
-				scriptID = $(this).data('script-id');
-
-				$container.html('<div class="input"><input data-script-id="' + scriptID + '"><button onclick="saveScriptBtn(this)">save</button></div>');
-				}
-
-				function addScript() {
-
-				var $container = $(this).parent(),
-				buttonID = $(this).data('button-id');
-
-				$container.html('<div class="input"><input data-button-id="' + buttonID + '"><button onclick="saveScript(this)">save</button></div>');
-				}
 
 				//$('.addScriptButton').click(addScriptButton);
 				//$('.addScript').click(addScript);

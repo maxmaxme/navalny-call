@@ -17,6 +17,13 @@ require_once '../config.php';
 			text-decoration: none;
 			outline: none;
 		}
+		a.PlusBtn {
+			color: red;
+		}
+		a.PlusBtn:hover {
+			text-decoration: none;
+			font-weight: bold;
+		}
 		/*a:link {
 		 color: #0066cc;
 		}
@@ -52,7 +59,7 @@ require_once '../config.php';
 			border: solid silver; /* цвет линий */
 			border-width: 0 0 1px 1px; /* границы: низ и лево */
 		}
-		span a {/* тест элемента дерева */
+		span a, span div.input {/* тест элемента дерева */
 			display: block;
 			position: relative;
 			top: .95em; /* смещаем узел на середину линии */
@@ -81,7 +88,7 @@ require_once '../config.php';
 			line-height: 1.2em;
 		}
 		ul li ul {
-			/*display: none;*/ /* узлы свернуты */
+			display: none; /* узлы свернуты */
 		}
 		ul li ul li {
 			margin: 0 0 0 1.2em;
@@ -118,14 +125,14 @@ require_once '../config.php';
 
 <div id="multi-derevo">
 	<h4><a>Звонок</a></h4>
-	<?=getBranch(1)?>
+	<?=getBranch(1, 1)?>
 </div>
 
 <? // getBranch(1); ?>
 
 
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
     /*<![CDATA[*/
     /*
@@ -149,7 +156,7 @@ require_once '../config.php';
 		  a:first используется, чтобы узлам ниже 1го уровня вложенности
 		  маркеры не добавлялись повторно.
 		*/
-        $('#multi-derevo li:has("ul")').find('a:first').prepend('<em class="marker open"></em>');
+        $('#multi-derevo li:has("ul")').find('a:first').prepend('<em class="marker"></em>');
 		// вешаем событие на клик по ссылке
         $('#multi-derevo li span').click(function () {
             // снимаем выделение предыдущего узла
@@ -176,7 +183,60 @@ require_once '../config.php';
                 em.toggleClass('open');
             }
         });
-    })
+
+
+
+
+
+        $('.addScriptButton').click(function () {
+
+			var $container = $(this).parent(),
+				scriptID = $(this).data('script-id');
+
+			$container.html('<div class="input"><input data-script-id="' + scriptID + '"><button onclick="saveScriptBtn(this)">save</button></div>');
+        });
+
+
+
+
+
+
+    });
+
+    var host = 'http://192.168.1.150';
+
+    function get(addr, callback) {
+        $.get(host+addr, function(data) {
+            if(data.success) {
+                callback(data.result);
+            } else {
+                alert('ошибка: '+data.error);
+            }
+        });
+    }
+
+
+    function saveScriptBtn(_this) {
+
+
+        var $container = $(_this).parent(),
+            $span = $container.parent(),
+            $ul = $span.parent(),
+        	$input = $container.find('input'),
+			scriptID = $input.data('script-id'),
+			text = $input.val();
+
+
+
+        if (scriptID > 0 && text !== '') {
+            get('/API/script.addButton?scriptID='+scriptID + '&text=' + text, function () {
+                $span.html('<a><em class="marker"></em>' + text + '</a>');
+                $ul.append('<ul><li><span><a class="PlusBtn">+</a></span></li></ul>');
+            });
+		}
+    }
+
+
     /*]]>*/
 </script>
 

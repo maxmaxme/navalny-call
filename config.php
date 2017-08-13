@@ -11,6 +11,7 @@ define('FUNCTIONS', SITE_PATH . 'functions/');
 require_once CFG . 'config.keys.php';
 require_once FUNCTIONS . 'engine.php';
 require_once FUNCTIONS . 'methods.php';
+require_once FUNCTIONS . 'tree.php';
 require_once CLS . 'auth.class.php';
 require_once CLS . 'safemysql.class.php';
 require_once CFG . 'connect.db.php';

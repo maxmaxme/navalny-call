@@ -4,4 +4,6 @@ RewriteEngine on
 
 RewriteBase /
 
-RewriteRule ^API/([\w.]+)/? /backend/api.php?method=$1 [QSA]
+RewriteRule ^API/([\w.]+)/?$ /backend/api.php?method=$1 [QSA]
+RewriteRule ^log/?$  /log.php [QSA]
+RewriteRule ^tree/?$  /tree.php [QSA]

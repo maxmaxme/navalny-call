@@ -11,3 +11,6 @@
 
 Запуск через LAMP с корнем в /public/
 
+Дамп базы данных лежит в /config/db_dump.sql
+
+В /public/call.js и /public/tree.php нужно изменить переменную host на IP адрес, где лежит API.

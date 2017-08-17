@@ -1,0 +1,7 @@
+{{#ul}}<ul>{{/ul}}
+	<li>
+		<span>
+			<a class="PlusBtn" onclick="{{func}}(this)" data-{{type}}-id="{{type_val}}">{{text}}</a>
+		</span>
+	</li>
+{{#ul}}</ul>{{/ul}}

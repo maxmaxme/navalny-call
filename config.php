@@ -26,6 +26,9 @@ require_once FUNCTIONS . 'methods.php';
 require_once FUNCTIONS . 'tree.php';
 require_once CLS . 'auth.class.php';
 require_once CLS . 'safemysql.class.php';
+require_once CLS . 'Mustache/Autoloader.php';
 require_once CFG . 'connect.db.php';
 require_once CFG . 'config.inc.php';
 
+Mustache_Autoloader::register();
+$mustache = new Mustache_Engine;

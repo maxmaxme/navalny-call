@@ -4,7 +4,11 @@ function addScriptButton(_this) {
     var $container = $(_this).parent(),
         scriptID = $(_this).data('script-id');
 
-    $container.html('<div class="input"><input data-script-id="' + scriptID + '"><button onclick="saveScriptBtn(this)">save</button></div>');
+    $container.html(Mustache.render(mustacheTemplates.scriptEdit, {
+        type: 'script',
+        type_val: scriptID,
+        func: 'saveScriptBtn'
+    }));
 }
 
 function addScript(_this) {
@@ -12,7 +16,11 @@ function addScript(_this) {
     var $container = $(_this).parent(),
         buttonID = $(_this).data('button-id');
 
-    $container.html('<div class="input"><input data-button-id="' + buttonID + '"><button onclick="saveScript(this)">save</button></div>');
+    $container.html(Mustache.render(mustacheTemplates.scriptEdit, {
+        type: 'button',
+        type_val: buttonID,
+        func: 'saveScript'
+    }));
 }
 
 
@@ -66,10 +74,13 @@ function saveScriptBtn(_this) {
             function (result) {
                 $span.html('<a><em class="marker"></em>' + text + '</a>');
 
-                $ul.append('<ul>' +
-                    '<li>' +
-                    '   <span><a class="PlusBtn" onclick="addScript(this)" data-button-id="' + result.buttonID + '">+</a></span>' +
-                    '</li></ul>');
+                $ul.append(Mustache.render(mustacheTemplates.addButton, {
+                    'ul': 1,
+                    'func': 'addScript',
+                    'type': 'button',
+                    'type_val': result.buttonID,
+                    'text': '+ Добавить продолжение'
+                }));
 
                 initTree();
             });
@@ -96,7 +107,13 @@ function saveScript(_this) {
             function (result) {
                 $span.html('<a><em class="marker"></em>Я: ' + text + '</a>');
 
-                $ul.append('<ul><li><span><a class="PlusBtn" onclick="addScriptButton(this)" data-script-id="' + result.scriptID + '">+</a></span></li></ul>');
+                $ul.append(Mustache.render(mustacheTemplates.addButton, {
+                    'ul': 1,
+                    'func': 'addScriptButton',
+                    'type': 'script',
+                    'type_val': result.scriptID,
+                    'text': '+ Добавить вариант ответа'
+                }));
 
                 initTree();
             });

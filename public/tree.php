@@ -16,7 +16,9 @@ require_once '../config.php';
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="/js/mustache.min.js"></script>
 <script src="/js/engine.js"></script>
+<script src="/js/mustacheTemplates.js"></script>
 <script src="/js/tree.js"></script>
 </body>
 </html>

@@ -7,3 +7,4 @@ RewriteBase /
 RewriteRule ^API/([\w.]+)/?$ /backend/api.php?method=$1 [QSA]
 RewriteRule ^log/?$  /log.php [QSA]
 RewriteRule ^tree/?$  /tree.php [QSA]
+RewriteRule ^js/mustacheTemplates.js$  /utils/getMustache.php [QSA]

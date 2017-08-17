@@ -1,4 +1,4 @@
-var host = '';
+var host = '/';
 
 function api(method, params, callback) {
 

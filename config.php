@@ -8,7 +8,19 @@ define('CFG', SITE_PATH . 'config/');
 define('CLS', SITE_PATH . 'cls/');
 define('FUNCTIONS', SITE_PATH . 'functions/');
 
-require_once CFG . 'config.keys.php';
+
+$server_configs = [
+	'config.server.' . gethostname() . '.php',
+	'config.server.php'
+];
+
+foreach ($server_configs as $server_config) {
+	if (file_exists(CFG . $server_config)) {
+		require_once CFG . $server_config;
+		break;
+	}
+}
+
 require_once FUNCTIONS . 'engine.php';
 require_once FUNCTIONS . 'methods.php';
 require_once FUNCTIONS . 'tree.php';

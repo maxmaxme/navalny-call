@@ -2,3 +2,4 @@
 .idea/
 public/test/
 log.txt
+config/config.server.*.php

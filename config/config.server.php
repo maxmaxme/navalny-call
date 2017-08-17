@@ -2,7 +2,7 @@
 
 $db_settings = array(
 	'user'    => 'root',
-	'pass'    => 'root',
+	'pass'    => '',
 	'db'      => 'navalny-call',
 	'errmode' => 'error'
 );

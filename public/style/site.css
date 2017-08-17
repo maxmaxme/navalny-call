@@ -1,0 +1,128 @@
+/* дерево */
+#tree {
+    font-family: Arial, Tahoma, sans-serif;
+    font-size: 62.5%;
+}
+
+#tree p {
+    font-size: 1.2em;
+}
+
+#tree a {
+    color: #0066cc;
+    text-decoration: none;
+    outline: none;
+}
+
+#tree a.PlusBtn {
+    color: red;
+}
+
+#tree a.PlusBtn:hover {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#tree a:hover {
+    text-decoration: underline;
+}
+
+#tree a:active,
+#tree a:focus {
+    color: #666;
+    background-color: #f4f4f4;
+}
+
+#tree a.current {
+    color: black;
+    font-weight: bold;
+    background-color: #f4f4f4;
+}
+
+/* Дерево многоуровневое
+-------------------------------- */
+#tree {
+    width: 100%; /* блок под дерево */
+    border: solid; /* границы блока */
+    border-color: silver gray gray silver;
+    border-width: 2px;
+    padding: 0 0 1em 0; /* нижний отступ */
+    font-size: 1.3em;
+}
+
+#tree span { /* обертка пункта */
+    text-decoration: none;
+    display: block; /* растянем до правого края блока */
+    margin: 0 0 0 1.2em;
+    background-color: transparent;
+    border: solid silver; /* цвет линий */
+    border-width: 0 0 1px 1px; /* границы: низ и лево */
+}
+
+#tree span a,
+#tree span div.input { /* тест элемента дерева */
+    display: block;
+    position: relative;
+    top: .95em; /* смещаем узел на середину линии */
+    background-color: #fff; /* закраска в цвет фона обязательна иначе будет видно линию */
+    margin: 0 0 .2em .7em; /* делаем промежуток между узлами, отодвигаем левее  */
+    padding: 0 0.3em; /* небольшой отступ от линии */
+}
+
+#tree h4 { /* заголовок дерева */
+    font-size: 1em;
+    font-weight: bold;
+    margin: 0;
+    padding: 0 .25em;
+    border-bottom: 1px solid silver;
+}
+
+#tree h4 a {
+    display: block;
+}
+
+#tree ul,
+#tree li {
+    list-style-image: none;
+    list-style-position: outside;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#tree ul li {
+    line-height: 1.2em;
+}
+
+#tree ul li ul {
+    display: none; /* узлы свернуты */
+}
+
+#tree ul li ul li {
+    margin: 0 0 0 1.2em;
+    border-left: 1px solid silver; /* цвет вертикальной линии между узлами */
+}
+
+#tree li.last { /* последний узел, соединительную линию к след. узлу убираем */
+    border: none;
+}
+
+#tree .marker { /* маркер раскрытия списка в закрытом состоянии */
+    border-color: transparent transparent transparent gray;
+    border-style: solid;
+    border-width: .25em 0 .25em .5em;
+    margin: .35em .25em 0 0;
+    float: left;
+    width: 0px;
+    height: 0px;
+    line-height: 0px;
+}
+
+#tree .marker.open { /* маркер раскрытия списка в открытом состоянии */
+    border-color: gray transparent transparent transparent;
+    border-width: .5em .25em 0 .25em;
+}
+
+#tree a {
+    cursor: pointer !important;
+}

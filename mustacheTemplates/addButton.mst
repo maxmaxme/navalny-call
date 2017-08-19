@@ -1,7 +1,7 @@
 {{#ul}}<ul>{{/ul}}
 	<li>
 		<span>
-			<a class="PlusBtn" onclick="{{func}}(this, '{{id}}')">{{text}}</a>
+			<div><a class="PlusBtn" onclick="{{func}}(this, '{{id}}')">{{text}}</a></div>
 		</span>
 	</li>
 {{#ul}}</ul>{{/ul}}

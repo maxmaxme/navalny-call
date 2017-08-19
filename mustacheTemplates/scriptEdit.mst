@@ -1,4 +1,2 @@
-<div class="input">
 	<input value="{{value}}">
 	<button onclick="{{func}}(this, '{{id}}')">Сохранить</button>
-</div>

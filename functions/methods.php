@@ -173,4 +173,46 @@ class script
 		return [$result, $error];
 	}
 
+	static public function deleteScriptBtn($buttonID)
+	{
+		global $db;
+
+		$error = '';
+		$result = [];
+
+		if ($buttonID) {
+			$scriptID = $db->getOne('select ToScriptID from script_buttons where ID=?i', $buttonID);
+			$db->query('delete from script_buttons where ID=?i', $buttonID);
+			self::deleteScript($scriptID);
+		}
+		else
+			$error = 'Заполнены не все поля';
+
+		return [$result, $error];
+	}
+
+	static public function deleteScript($scriptID)
+	{
+		global $db;
+
+		$error = '';
+		$result = [];
+
+		if ($scriptID) {
+
+			$result['buttonID'] = $db->getOne('select ID from script_buttons where ToScriptID=?i', $scriptID);
+
+			$buttons = $db->getCol('select ID from script_buttons where ScriptID=?i', $scriptID);
+			$db->query('delete from script where ID=?i', $scriptID);
+			$db->query('update script_buttons set ToScriptID=0 where ToScriptID=?i', $scriptID);
+
+			foreach ($buttons as $buttonID)
+				self::deleteScriptBtn($buttonID);
+		}
+		else
+			$error = 'Заполнены не все поля';
+
+		return [$result, $error];
+	}
+
 }

@@ -8,7 +8,14 @@ function getBranch($scriptID, $addBtns = false) {
 	$buttons = $db->getAll('select ID, Text, ToScriptID from script_buttons where ScriptID=?i', $scriptID);
 
 
-	$html = '<ul><li><span><a>' . $text . '</a></span><ul>';
+	$html = '<ul><li><span>' .
+		$mustache->render(
+			getMustacheTemplate('treeItem'), [
+				'text' => $text,
+				'type' => 'Script',
+				'id' => $scriptID
+			]) .
+		'</span><ul>';
 
 
 	if ($addBtns)
@@ -19,7 +26,14 @@ function getBranch($scriptID, $addBtns = false) {
 		]);
 
 	foreach ($buttons as $button) {
-		$html .= '<li><span><a>' . $button['Text'] . '</a></span>';
+		$html .= '<li><span>' .
+			$mustache->render(
+				getMustacheTemplate('treeItem'), [
+					'text' => $button['Text'],
+					'type' => 'ScriptBtn',
+					'id' => $button['ID']
+				]) .
+			'</span>';
 		if ($button['ToScriptID'])
 			$html .= getBranch($button['ToScriptID'], $addBtns);
 		else

@@ -6,6 +6,7 @@ require_once '../config.php';
 	<meta charset="UTF-8">
 	<title>Дерево</title>
 	<link type="text/css" href="/style/site.css" rel="stylesheet">
+	<link type="text/css" href="/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
 

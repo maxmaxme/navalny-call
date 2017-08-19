@@ -1,0 +1,6 @@
+<div class="text">{{{text}}}</div>
+{{#buttons}}
+<button class="btn btn-primary" onclick="answer({{ID}})">{{Text}}</button>
+{{/buttons}}
+
+<button class="btn btn-danger" onclick="completeCall()">Завершить звонок</button>

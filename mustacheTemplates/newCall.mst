@@ -1,0 +1,1 @@
+<button class="btn btn-primary" onclick="initCall()">Позвонить <i class="fa fa-phone"></i></button>

@@ -1,7 +1,5 @@
-$(document).ready(function () {
-
+$(function () {
     initTree();
-
 });
 
 function initTree() {

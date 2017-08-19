@@ -1,5 +1,5 @@
 <div>
-	<a>{{#marker}}<em class="marker"></em>{{/marker}}{{text}}</a>
+	<a><em class="marker"></em>{{text}}</a>
 
 
 	<i class="fa fa-pencil" aria-hidden="true" onclick="edit{{type}}(this, {{id}})"></i>

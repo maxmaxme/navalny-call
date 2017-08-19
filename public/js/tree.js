@@ -1,9 +1,6 @@
 $(document).ready(function () {
 
-    $('#tree li:has("ul")').find('a:first').prepend('<em class="marker"></em>');
-
     initTree();
-
 
 });
 
@@ -71,7 +68,6 @@ function addScriptBtnAction(_this, scriptID) {
             function (result) {
                 $span.html(Mustache.render(mustacheTemplates.treeItem, {
                     text: text,
-                    marker: 1,
                     type: 'ScriptBtn',
                     id: result.buttonID
                 }));
@@ -107,7 +103,6 @@ function addScriptAction(_this, buttonID) {
             function (result) {
                 $span.html(Mustache.render(mustacheTemplates.treeItem, {
                     text: 'Я: ' + text,
-                    marker: 1,
                     type: 'Script',
                     id: result.scriptID
                 }));
@@ -174,7 +169,6 @@ function editScriptAction(_this, scriptID) {
 
         $(_this).closest('span').html(Mustache.render(mustacheTemplates.treeItem, {
             text: 'Я: ' + text,
-            marker: 1,
             type: 'Script',
             id: scriptID
         }));
@@ -193,7 +187,6 @@ function editScriptBtnAction(_this, buttonID) {
 
         $(_this).closest('span').html(Mustache.render(mustacheTemplates.treeItem, {
             text: text,
-            marker: 1,
             type: 'ScriptBtn',
             id: buttonID
         }));

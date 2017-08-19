@@ -1,7 +1,7 @@
 <?php
 
 function getBranch($scriptID, $addBtns = false) {
-	global $db, $mustache;
+	global $db, $mustache, $mustacheTemplates;
 
 
 	$text = $db->getOne('select concat("Я: ", Text) as Text from script where ID=?i', $scriptID);
@@ -10,7 +10,7 @@ function getBranch($scriptID, $addBtns = false) {
 
 	$html = '<ul><li><span>' .
 		$mustache->render(
-			getMustacheTemplate('treeItem'), [
+			$mustacheTemplates->getTemplate('treeItem'), [
 				'text' => $text,
 				'type' => 'Script',
 				'id' => $scriptID
@@ -19,7 +19,7 @@ function getBranch($scriptID, $addBtns = false) {
 
 
 	if ($addBtns)
-		$html .= $mustache->render(getMustacheTemplate('addButton'), [
+		$html .= $mustache->render($mustacheTemplates->getTemplate('addButton'), [
 			'func' => 'addScriptButton',
 			'id' => $scriptID,
 			'text' => '+ Добавить вариант ответа',
@@ -28,7 +28,7 @@ function getBranch($scriptID, $addBtns = false) {
 	foreach ($buttons as $button) {
 		$html .= '<li><span>' .
 			$mustache->render(
-				getMustacheTemplate('treeItem'), [
+				$mustacheTemplates->getTemplate('treeItem'), [
 					'text' => $button['Text'],
 					'type' => 'ScriptBtn',
 					'id' => $button['ID']
@@ -38,7 +38,7 @@ function getBranch($scriptID, $addBtns = false) {
 			$html .= getBranch($button['ToScriptID'], $addBtns);
 		else
 			if ($addBtns)
-				$html .= $mustache->render(getMustacheTemplate('addButton'), [
+				$html .= $mustache->render($mustacheTemplates->getTemplate('addButton'), [
 					'func' => 'addScript',
 					'id' => $button['ID'],
 					'text' => '+ Добавить продолжение',

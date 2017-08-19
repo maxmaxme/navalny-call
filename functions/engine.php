@@ -73,7 +73,3 @@ function getIP() {
 	}
 	return $ip;
 }
-
-function getMustacheTemplate($name) {
-	return file_get_contents(SITE_PATH . '/mustacheTemplates/' . $name . '.mst');
-}

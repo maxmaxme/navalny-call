@@ -13,7 +13,8 @@ function getBranch($scriptID, $addBtns = false) {
 			$mustacheTemplates->getTemplate('treeItem'), [
 				'text' => $text,
 				'type' => 'Script',
-				'id' => $scriptID
+				'id' => $scriptID,
+				'buttons' => $addBtns
 			]) .
 		'</span><ul>';
 
@@ -31,7 +32,8 @@ function getBranch($scriptID, $addBtns = false) {
 				$mustacheTemplates->getTemplate('treeItem'), [
 					'text' => $button['Text'],
 					'type' => 'ScriptBtn',
-					'id' => $button['ID']
+					'id' => $button['ID'],
+					'buttons' => $addBtns
 				]) .
 			'</span>';
 		if ($button['ToScriptID'])

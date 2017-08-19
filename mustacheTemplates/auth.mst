@@ -1,0 +1,9 @@
+<form id="authForm">
+	<label for="login">
+		<input id="login" placeholder="Логин">
+	</label>
+	<label for="password">
+		<input id="password" type="password" placeholder="Пароль">
+	</label>
+	<button class="btn btn-success" onclick="authAction(); return false;">Войти</button>
+</form>

@@ -10,10 +10,6 @@ $error = $result = '';
 
 switch ($method) {
 
-	case 'test':
-		$result = 'OK!';
-		break;
-
 	case 'calls.init': list($result, $error) = calls::init(varInt('cityCode')); break;
 	case 'calls.button': list($result, $error) = calls::button(varInt('buttonID')); break;
 	case 'calls.complete': list($result, $error) = calls::complete(); break;
@@ -23,6 +19,9 @@ switch ($method) {
 	case 'script.deleteScript': list($result, $error) = script::deleteScript(varInt('scriptID')); break;
 	case 'script.editScript': list($result, $error) = script::editScript(varInt('scriptID'), varStr('text')); break;
 	case 'script.editScriptBtn': list($result, $error) = script::editScriptBtn(varInt('buttonID'), varStr('text')); break;
+
+	case 'auth': list($result, $error) = auth::login(varStr('login'), varStr('password')); break;
+	case 'auth.checkToken': list($result, $error) = auth::checkToken(varStr('token')); break;
 
 
 	default:

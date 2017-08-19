@@ -2,6 +2,10 @@
 
 require '../config.php';
 
+if (!$auth->canViewLog)
+	die('Access denied');
+
+
 $phones = $db->getAll("select 
 	p.ID,
 	p.Phone,

@@ -1,5 +1,9 @@
 $(function () {
-    newCall();
+    access_token = getCookie('access_token');
+    if (checkToken(access_token))
+        newCall();
+    else
+        initAuth();
 });
 
 var $container = $('.call_page');
@@ -35,4 +39,51 @@ function completeCall() {
 
 function newCall() {
     $container.html(Mustache.render(mustacheTemplates.newCall, {}));
+}
+
+function initAuth() {
+    $container.html(Mustache.render(mustacheTemplates.auth, {}));
+}
+
+function authAction() {
+    var $form = $('#authForm'),
+        $button = $('.btn', $form),
+        login = $('#login', $form).val(),
+        password = $('#password', $form).val();
+
+    if (login && password) {
+        $button.attr('disabled', true);
+        api('auth', {
+            login: login,
+            password: password
+        }, function (result) {
+
+            access_token = result['hash'];
+
+            setCookie('access_token', access_token, {
+                expires: 100 * 24 * 3600, // 100 дней
+                path: '/'
+            });
+            newCall();
+        });
+        $button.attr('disabled', false);
+    }
+
+}
+
+function checkToken(token) {
+    var ok = false;
+
+    $.ajax({
+        url: host + 'API/auth.checkToken?token=' + token,
+        type: 'get',
+        dataType: 'json',
+        async: false,
+        success: function(data) {
+            if(data['success'] === true)
+                ok = true;
+        }
+    });
+
+    return ok;
 }

@@ -1,5 +1,10 @@
 <?
 require_once '../config.php';
+if (!$auth->canViewTree)
+	die('Access denied');
+
+$addButtons = $auth->canEditTree ? 1 : 0;
+
 ?><!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -12,7 +17,7 @@ require_once '../config.php';
 
 <div id="tree">
 	<h4><a>Звонок</a></h4>
-	<?= getBranch(1, 1) ?>
+	<?= getBranch(1, $addButtons) ?>
 </div>
 
 

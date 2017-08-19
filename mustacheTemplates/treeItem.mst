@@ -2,8 +2,10 @@
 	<a><em class="marker"></em>{{text}}</a>
 
 
+	{{#buttons}}
 	<i class="fa fa-pencil" aria-hidden="true" onclick="edit{{type}}(this, {{id}})"></i>
 	<i class="fa fa-times" aria-hidden="true" onclick="delete{{type}}(this, {{id}})"></i>
+	{{/buttons}}
 
 
 </div>

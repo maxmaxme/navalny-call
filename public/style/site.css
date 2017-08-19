@@ -19,8 +19,7 @@
 }
 
 #tree a.PlusBtn:hover {
-    text-decoration: none;
-    font-weight: bold;
+    text-decoration: underline;
 }
 
 #tree a:hover {
@@ -67,6 +66,33 @@
     background-color: #fff; /* закраска в цвет фона обязательна иначе будет видно линию */
     margin: 0 0 .2em .7em; /* делаем промежуток между узлами, отодвигаем левее  */
     padding: 0 0.3em; /* небольшой отступ от линии */
+}
+
+#tree span input {
+    font-size: 20px;
+    border: 0;
+    padding-left: 15px;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    border-bottom: 1px solid #cecece;
+    outline: none;
+}
+
+#tree span button {
+    border: 1px solid;
+    color: #0066cc;
+    background: white;
+}
+#tree span button:hover {
+    color: white;
+    background: #0066cc;
+    cursor: pointer;
+}
+
+#tree span div .fa {
+    color: #cecece;
+    font-size: 16px;
 }
 
 #tree span div .fa:hover {

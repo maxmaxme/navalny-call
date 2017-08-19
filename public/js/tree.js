@@ -148,9 +148,57 @@ function deleteScriptBtn(_this, buttonID) {
          $(_this).closest('li').remove();
     });
 }
-function editScript(_this, scriptID) {
 
+function editScript(_this, scriptID) {
+    $(_this).closest('div').html(Mustache.render(mustacheTemplates.scriptEdit, {
+        id: scriptID,
+        func: 'editScriptAction',
+        value: $('a', $(_this).closest('div')).html().replace(/^(<em class="marker(?: open)?"><\/em>Я: )/g, '')
+    }));
 }
 function editScriptBtn(_this, buttonID) {
+    $(_this).closest('div').html(Mustache.render(mustacheTemplates.scriptEdit, {
+        id: buttonID,
+        func: 'editScriptBtnAction',
+        value: $('a', $(_this).closest('div')).html().replace(/^(<em class="marker(?: open)?"><\/em>)/g, '')
+    }));
+}
 
+function editScriptAction(_this, scriptID) {
+    var text = $('input', $(_this).parent()).val();
+
+    api('script.editScript', {
+       scriptID: scriptID,
+       text: text
+    }, function () {
+
+        $(_this).closest('span').html(Mustache.render(mustacheTemplates.treeItem, {
+            text: 'Я: ' + text,
+            marker: 1,
+            type: 'Script',
+            id: scriptID
+        }));
+
+        initTree();
+
+    });
+}
+function editScriptBtnAction(_this, buttonID) {
+    var text = $('input', $(_this).parent()).val();
+
+    api('script.editScriptBtn', {
+        buttonID: buttonID,
+        text: text
+    }, function () {
+
+        $(_this).closest('span').html(Mustache.render(mustacheTemplates.treeItem, {
+            text: text,
+            marker: 1,
+            type: 'ScriptBtn',
+            id: buttonID
+        }));
+
+        initTree();
+
+    });
 }

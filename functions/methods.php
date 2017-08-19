@@ -215,4 +215,40 @@ class script
 		return [$result, $error];
 	}
 
+	static public function editScriptBtn($buttonID, $text)
+	{
+		global $db;
+
+		$error = '';
+		$result = [];
+
+		if ($buttonID && $text) {
+
+			$db->query('update script_buttons set Text=?s where ID=?i', $text, $buttonID);
+
+		}
+		else
+			$error = 'Заполнены не все поля';
+
+		return [$result, $error];
+	}
+
+	static public function editScript($scriptID, $text)
+	{
+		global $db;
+
+		$error = '';
+		$result = [];
+
+		if ($scriptID && $text) {
+
+			$db->query('update script set Text=?s where ID=?i', $text, $scriptID);
+
+		}
+		else
+			$error = 'Заполнены не все поля';
+
+		return [$result, $error];
+	}
+
 }

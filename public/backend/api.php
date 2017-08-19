@@ -21,6 +21,8 @@ switch ($method) {
 	case 'script.add': list($result, $error) = script::add(varInt('buttonID'), varStr('text')); break;
 	case 'script.deleteScriptBtn': list($result, $error) = script::deleteScriptBtn(varInt('buttonID')); break;
 	case 'script.deleteScript': list($result, $error) = script::deleteScript(varInt('scriptID')); break;
+	case 'script.editScript': list($result, $error) = script::editScript(varInt('scriptID'), varStr('text')); break;
+	case 'script.editScriptBtn': list($result, $error) = script::editScriptBtn(varInt('buttonID'), varStr('text')); break;
 
 
 	default:

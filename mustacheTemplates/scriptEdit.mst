@@ -1,4 +1,4 @@
 <div class="input">
-	<input data-{{type}}-id="{{type_val}}" value="{{value}}">
-	<button onclick="{{func}}(this)">Сохранить</button>
+	<input value="{{value}}">
+	<button onclick="{{func}}(this, '{{id}}')">Сохранить</button>
 </div>

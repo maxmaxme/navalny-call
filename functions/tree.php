@@ -14,8 +14,7 @@ function getBranch($scriptID, $addBtns = false) {
 	if ($addBtns)
 		$html .= $mustache->render(getMustacheTemplate('addButton'), [
 			'func' => 'addScriptButton',
-			'type' => 'script',
-			'type_val' => $scriptID,
+			'id' => $scriptID,
 			'text' => '+ Добавить вариант ответа',
 		]);
 
@@ -27,8 +26,7 @@ function getBranch($scriptID, $addBtns = false) {
 			if ($addBtns)
 				$html .= $mustache->render(getMustacheTemplate('addButton'), [
 					'func' => 'addScript',
-					'type' => 'button',
-					'type_val' => $button['ID'],
+					'id' => $button['ID'],
 					'text' => '+ Добавить продолжение',
 					'ul' => 1
 				]);

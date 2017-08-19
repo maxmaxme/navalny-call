@@ -1,24 +1,20 @@
-function addScriptButton(_this) {
+function addScriptButton(_this, scriptID) {
 
 
-    var $container = $(_this).parent(),
-        scriptID = $(_this).data('script-id');
+    var $container = $(_this).parent();
 
     $container.html(Mustache.render(mustacheTemplates.scriptEdit, {
-        type: 'script',
-        type_val: scriptID,
+        id: scriptID,
         func: 'saveScriptBtn'
     }));
 }
 
-function addScript(_this) {
+function addScript(_this, buttonID) {
 
-    var $container = $(_this).parent(),
-        buttonID = $(_this).data('button-id');
+    var $container = $(_this).parent();
 
     $container.html(Mustache.render(mustacheTemplates.scriptEdit, {
-        type: 'button',
-        type_val: buttonID,
+        id: buttonID,
         func: 'saveScript'
     }));
 }
@@ -54,32 +50,30 @@ $(document).ready(function () {
 });
 
 
-function saveScriptBtn(_this) {
+function saveScriptBtn(_this, scriptID) {
 
 
     var $container = $(_this).parent(),
         $span = $container.parent(),
         $ul = $span.parent(),
         $input = $container.find('input'),
-        scriptID = $input.data('script-id'),
         text = $input.val();
 
 
     if (scriptID > 0 && text !== '') {
         api('script.addButton',
             {
-                'scriptID': scriptID,
-                'text': text
+                scriptID: scriptID,
+                text: text
             },
             function (result) {
                 $span.html('<a><em class="marker"></em>' + text + '</a>');
 
                 $ul.append(Mustache.render(mustacheTemplates.addButton, {
-                    'ul': 1,
-                    'func': 'addScript',
-                    'type': 'button',
-                    'type_val': result.buttonID,
-                    'text': '+ Добавить продолжение'
+                    ul: 1,
+                    func: 'addScript',
+                    id: result.buttonID,
+                    text: '+ Добавить продолжение'
                 }));
 
                 initTree();
@@ -87,32 +81,30 @@ function saveScriptBtn(_this) {
     }
 }
 
-function saveScript(_this) {
+function saveScript(_this, buttonID) {
 
 
     var $container = $(_this).parent(),
         $span = $container.parent(),
         $ul = $span.parent(),
         $input = $container.find('input'),
-        buttonID = $input.data('button-id'),
         text = $input.val();
 
 
     if (buttonID > 0 && text !== '') {
         api('script.add',
             {
-                'buttonID': buttonID,
-                'text': text
+                buttonID: buttonID,
+                text: text
             },
             function (result) {
                 $span.html('<a><em class="marker"></em>Я: ' + text + '</a>');
 
                 $ul.append(Mustache.render(mustacheTemplates.addButton, {
-                    'ul': 1,
-                    'func': 'addScriptButton',
-                    'type': 'script',
-                    'type_val': result.scriptID,
-                    'text': '+ Добавить вариант ответа'
+                    ul: 1,
+                    func: 'addScriptButton',
+                    id: result.scriptID,
+                    text: '+ Добавить вариант ответа'
                 }));
 
                 initTree();

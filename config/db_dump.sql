@@ -60,7 +60,7 @@ CREATE TABLE `phones` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Phone` bigint(20) NOT NULL,
   `UserID` int(11) NOT NULL,
-  `StatusID` int(11) NOT NULL COMMENT '0 — идёт разговор, 1 — завершён',
+  `StatusID` int(11) NOT NULL DEFAULT '0' COMMENT '0 — идёт разговор, 1 — завершён',
   PRIMARY KEY (`ID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 

@@ -1,5 +1,6 @@
 $(function () {
-    access_token = getCookie('access_token');
+    //access_token = getCookie('access_token');
+    access_token = 'test';
     if (checkToken(access_token))
         newCall();
     else

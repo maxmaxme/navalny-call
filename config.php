@@ -34,4 +34,5 @@ require_once CFG . 'config.inc.php';
 Mustache_Autoloader::register();
 $mustache = new Mustache_Engine;
 $mustacheTemplates = new mustacheTemplates;
-$auth = new auth(varStr('access_token', array_merge($_GET, $_POST)));
+//$auth = new auth(varStr('access_token', array_merge($_GET, $_POST)));
+$auth = new auth('test');

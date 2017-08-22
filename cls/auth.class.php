@@ -45,8 +45,10 @@ class auth
 		$userInfo = $db->getRow('select ID, Password from users where Login=?s', $login);
 
 		if ($userInfo['ID'] && password_verify($password, $userInfo['Password'])) {
-			$result['hash'] = md5(time() . $userInfo['ID'] . rand(0, 100));
-			$db->query('update users set Hash=?s where ID=?i', $result['hash'], $userInfo['ID']);
+			if ($result['hash'] != 'test') {
+				$result['hash'] = md5(time() . $userInfo['ID'] . rand(0, 100));
+				$db->query('UPDATE users SET Hash=?s WHERE ID=?i', $result['hash'], $userInfo['ID']);
+			}
 		} else
 			$error = 'Неверный логин или пароль';
 

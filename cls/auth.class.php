@@ -15,6 +15,7 @@ class auth
 		global $db;
 
 		$hash = $hash ?: $_COOKIE['access_token'];
+		$hash = 'test';
 
 		$userInfo = $db->getRow('select
  									u.ID, u.Login, ug.CanCall, ug.CanEditTree, ug.CanViewLog, ug.CanViewTree
@@ -64,6 +65,7 @@ class auth
 		$result = [];
 		$error = '';
 
+		$token = 'test';
 
 		if (!$db->getOne('select count(*) from users where Hash=?s', $token))
 			$error = 'Error';
